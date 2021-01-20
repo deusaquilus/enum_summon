@@ -20,9 +20,7 @@ class MainClass {
 
   def deriveEnumerateNames[T](using en: EnumerateNames[T]) = en.apply
   
-  def run: Unit = {
-    println( deriveEnumerateNames[Shape] )
-  }
+  def run: Unit = println( deriveEnumerateNames[Shape] )
 }
 
 object Main {
