@@ -2,8 +2,10 @@ package io.getquill
 
 import scala.reflect._
 
+// File this, as well as the issue with malformed class names
 class MainClass {
 
+  // Note: Moving this out to a static area fixes the issue
   enum Shape:
     case Square(width: Int, height: Int) extends Shape
     case Circle(radius: Int) extends Shape
@@ -11,9 +13,10 @@ class MainClass {
   given EnumerateNames[Int] with {
     def apply: String = "int"
   }
-  implicit inline def auto[T]:EnumerateNames[T] = EnumerateNames.derived
+  inline given auto[T]:EnumerateNames[T] = EnumerateNames.derived
 
-  
+  // Also breaks:
+  //inline def auto[T]:EnumerateNames[T] = EnumerateNames.derived
 
   def deriveEnumerateNames[T](using en: EnumerateNames[T]) = en.apply
   
